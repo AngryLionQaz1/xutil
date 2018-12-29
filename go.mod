@@ -7,6 +7,7 @@ require (
 	github.com/antchfx/htmlquery v0.0.0-20181207070731-9784ecda34b7 // indirect
 	github.com/antchfx/xmlquery v0.0.0-20181223105952-355641961c92 // indirect
 	github.com/antchfx/xpath v0.0.0-20181208024549-4bbdf6db12aa // indirect
+	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.1.0
