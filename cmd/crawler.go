@@ -18,6 +18,6 @@ func main() {
 		fmt.Println("Visiting", r.URL)
 	})
 
-	c.Visit("http://go-colly.org/")
+	c.Visit("http://www.w23588.com")
 
 }
