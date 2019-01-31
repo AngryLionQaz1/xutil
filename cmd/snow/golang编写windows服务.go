@@ -1,4 +1,4 @@
-package main
+package snow
 
 import (
 	"github.com/jander/golog/logger"

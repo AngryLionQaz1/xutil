@@ -10,6 +10,9 @@ require (
 	github.com/antchfx/xpath v0.0.0-20181208024549-4bbdf6db12aa // indirect
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/fatih/color v1.7.0 // indirect
+	github.com/go-gl/gl v0.0.0-20181026044259-55b76b7df9d2
+	github.com/go-gl/glfw v0.0.0-20181213070059-819e8ce5125f
+	github.com/go-gl/mathgl v0.0.0-20180804195959-cdf14b6b8f8a
 	github.com/go-vgo/robotgo v0.0.0-20190125165610-5cb95037c5d1
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.1.0
