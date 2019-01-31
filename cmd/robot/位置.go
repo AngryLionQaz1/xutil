@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/go-vgo/robotgo"
 )
 
@@ -16,9 +15,10 @@ func main() {
 	fx, fy := robotgo.FindBitmap(bitmap)
 	fmt.Println("FindBitmap------", fx, fy)
 
-	robotgo.SaveBitmap(bitmap, "test.png")
+	//robotgo.SaveBitmap(bitmap, string(time.Now().UnixNano())+".png")
+	robotgo.SaveBitmap(bitmap, "asses/img/"+"x.png")
 
-	robotgo.Convert("test.png", "test.tif")
+	//robotgo.Convert("test.png", "test.tif")
 
 	//portion := robotgo.GetPortion(bitmap, 100, 100, 200, 200)
 	//
