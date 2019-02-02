@@ -22,6 +22,7 @@ require (
 	github.com/kardianos/osext v0.0.0-20170510131534-ae77be60afb1 // indirect
 	github.com/kardianos/service v0.0.0-20181115005516-4c239ee84e7b
 	github.com/kennygrant/sanitize v1.2.4 // indirect
+	github.com/lxn/walk v0.0.0-20181206152800-6d09625fb5d5
 	github.com/mattn/go-colorable v0.0.9 // indirect
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/mattn/go-runewidth v0.0.4 // indirect
@@ -34,5 +35,6 @@ require (
 	golang.org/x/net v0.0.0-20181220203305-927f97764cc3 // indirect
 	golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4 // indirect
 	google.golang.org/appengine v1.4.0 // indirect
+	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.27
 )
