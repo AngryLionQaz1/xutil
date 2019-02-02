@@ -3,6 +3,8 @@ module xutil
 require (
 	bou.ke/monkey v1.0.1 // indirect
 	github.com/360EntSecGroup-Skylar/excelize v1.4.0 // indirect
+	github.com/3d0c/gmf v0.0.0-20190130143955-57903d682523
+	github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802
 	github.com/Luxurioust/excelize v1.4.0
 	github.com/PuerkitoBio/goquery v1.5.0 // indirect
 	github.com/antchfx/htmlquery v0.0.0-20181207070731-9784ecda34b7 // indirect

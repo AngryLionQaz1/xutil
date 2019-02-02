@@ -49,5 +49,4 @@ func CaptureRect(rect image.Rectangle) (*image.RGBA, error) {
 
 func main() {
 	CaptureScreen()
-
 }
