@@ -1,5 +1,5 @@
-name: test-server
-displayName: 测试spring-boot
-description: 测试测试
+name: GoTest
+displayName: goTest
+description: goserver
 jar: xiaoyi.jar
 actuator: http://127.0.0.1:8086/actuator/shutdown

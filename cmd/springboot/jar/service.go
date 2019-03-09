@@ -8,6 +8,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 )
@@ -28,14 +29,21 @@ type Init struct {
 
 var conf *Init
 
-const initFile = "E:\\GoProjects\\xutil\\cmd\\springboot\\jar\\init.yaml"
+const initFile = "init.yaml"
+const (
+	Name        = "GoTest"
+	DisplayName = "goTest"
+	Description = "oserver"
+	Jar         = "C:\\Users\\win\\Desktop\\22s\\xiaoyi.jar"
+	Actuator    = "http://127.0.0.1:8086/actuator/shutdown"
+)
 
 func main() {
 
 	var serviceConfig = &service.Config{
-		Name:        conf.Name,
-		DisplayName: conf.DisplayName,
-		Description: conf.Description,
+		Name:        Name,
+		DisplayName: DisplayName,
+		Description: Description,
 	}
 
 	// 构建服务对象
@@ -68,8 +76,6 @@ func main() {
 		fmt.Println("卸载成功")
 	}
 
-	log.Println("conf", conf.Description)
-
 }
 
 //初始换配置文件
@@ -84,7 +90,7 @@ func init() {
 
 func (p *Program) run() {
 	// 此处编写具体的服务代码
-	exe("java", "-jar", conf.Jar)
+	exe("java", "-jar", Jar)
 }
 
 func (p *Program) Start(s service.Service) error {
@@ -95,12 +101,14 @@ func (p *Program) Start(s service.Service) error {
 
 func (p *Program) Stop(s service.Service) error {
 	log.Println("停止服务")
-
+	body_type := "application/json;charset=utf-8"
+	http.Post(Actuator, body_type, nil)
 	return nil
 }
 
 /**执行命令*/
 func exe(cm string, args ...string) {
+	//fd, _ := os.OpenFile("xiaoyi.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	cmd := exec.Command(cm, args...)
 	//创建获取命令输出管道
 	stdout, err := cmd.StdoutPipe()
@@ -114,15 +122,18 @@ func exe(cm string, args ...string) {
 	outputBuf := bufio.NewReader(stdout)
 	for {
 		//一次获取一行,_ 获取当前行是否被读完
-		output, _, err := outputBuf.ReadLine()
+		//output, _, err := outputBuf.ReadLine()
+		_, _, err := outputBuf.ReadLine()
 		if err != nil {
 			// 判断是否到文件的结尾了否则出错
 			if err.Error() != "EOF" {
+				//fd.Close()
 				checkErr(err)
 			}
 			return
 		}
-		fmt.Println(string(output))
+		//fd.WriteString("\n")
+		//fd.WriteString(string(output))
 	}
 	//wait 方法会一直阻塞到其所属的命令完全运行结束为止
 	if err := cmd.Wait(); err != nil {

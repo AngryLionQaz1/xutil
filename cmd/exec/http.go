@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 )
 
 func main() {
@@ -12,7 +11,8 @@ func main() {
 }
 func httpPost() {
 
-	resp, err := http.PostForm("http://127.0.0.1:8086/actuator/shutdown", url.Values{})
+	body_type := "application/json;charset=utf-8"
+	resp, err := http.Post("http://127.0.0.1:8086/actuator/shutdown", body_type, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
