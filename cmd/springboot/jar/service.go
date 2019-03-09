@@ -84,7 +84,7 @@ func init() {
 
 func (p *Program) run() {
 	// 此处编写具体的服务代码
-
+	exe("java", "-jar", conf.Jar)
 }
 
 func (p *Program) Start(s service.Service) error {
@@ -95,6 +95,7 @@ func (p *Program) Start(s service.Service) error {
 
 func (p *Program) Stop(s service.Service) error {
 	log.Println("停止服务")
+
 	return nil
 }
 
