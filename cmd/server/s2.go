@@ -22,7 +22,7 @@ func (srv *services) Start(s service.Service) error {
 		srv.log.Info("Start run http server")
 	}
 
-	lis, err := net.Listen("tcp", ":8080")
+	lis, err := net.Listen("tcp", ":9090")
 	if err != nil {
 		return err
 	}
