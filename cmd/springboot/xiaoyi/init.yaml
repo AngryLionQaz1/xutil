@@ -1,0 +1,5 @@
+name: GoTest
+displayName: goTest
+description: goserver
+jar: xiaoyi.jar
+actuator: http://127.0.0.1:8086/actuator/shutdown

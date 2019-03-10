@@ -11,45 +11,35 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"time"
 )
 
-type Program struct{}
-type Init struct {
+const (
+	initFile = "init.yaml"
+)
+
+type Program struct {
+
 	//服务名
 	Name string `yaml:name`
 	//服务器显示
 	DisplayName string `yaml:displayName`
 	//服务描述
 	Description string `yaml:description`
+	//路径
+	Path string `yaml:path`
 	//jar包名
 	Jar string `yaml:jar`
 	//停止
 	Actuator string `yaml:actuator`
 }
 
-var conf *Init
-
-const initFile = "init.yaml"
-const (
-	Name        = "GoTest"
-	DisplayName = "goTest"
-	Description = "oserver"
-	Path        = "C:\\Users\\pc\\Desktop\\2w"
-	Jar         = "xiaoyi.jar"
-	Actuator    = "http://127.0.0.1:8086/actuator/shutdown"
-)
-
 func main() {
 
-	var serviceConfig = &service.Config{
-		Name:        Name,
-		DisplayName: DisplayName,
-		Description: Description,
-	}
-
-	// 构建服务对象
-	prog := &Program{}
-	s, err := service.New(prog, serviceConfig)
+	program := initProgram()
+	config := initService(program)
+	s, err := service.New(program, config)
 	checkErr(err)
 	if len(os.Args) < 2 {
 		err = s.Run()
@@ -58,9 +48,7 @@ func main() {
 		}
 		return
 	}
-
 	cmd := os.Args[1]
-
 	if cmd == "install" {
 		err = s.Install()
 		if err != nil {
@@ -76,43 +64,55 @@ func main() {
 		}
 		fmt.Println("卸载成功")
 	}
-
-}
-
-//初始换配置文件
-func init() {
-	i := new(Init)
-	yamlFile, err := ioutil.ReadFile(initFile)
-	checkErr(err)
-	err = yaml.Unmarshal(yamlFile, i)
-	checkErr(err)
-	conf = i
 }
 
 func (p *Program) run() {
+	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	os.Chdir(dir)
 	// 此处编写具体的服务代码
-	exe("java", "-jar", Jar)
+	exe("java", "-jar", p.Jar)
 }
 
 func (p *Program) Start(s service.Service) error {
 	log.Println("开始服务")
-	os.Chdir(Path)
+	logs("开始服务")
 	go p.run()
-	fd, _ := os.OpenFile("xiaoyi.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
-	dir, _ := os.Getwd()
-	fd.WriteString(dir)
 	return nil
 }
 
 func (p *Program) Stop(s service.Service) error {
 	log.Println("停止服务")
+	logs("停止服务")
 	body_type := "application/json;charset=utf-8"
-	http.Post(Actuator, body_type, nil)
+	http.Post(p.Actuator, body_type, nil)
 	return nil
+}
+
+//读取配置文件
+func initProgram() *Program {
+	i := new(Program)
+	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	yamlFile, err := ioutil.ReadFile(filepath.Join(dir, initFile))
+	checkErr(err)
+	err = yaml.Unmarshal(yamlFile, i)
+	checkErr(err)
+	return i
+}
+
+//初始化服务
+func initService(p *Program) *service.Config {
+
+	var serviceConfig = &service.Config{
+		Name:        p.Name,
+		DisplayName: p.DisplayName,
+		Description: p.Description,
+	}
+	return serviceConfig
 }
 
 /**执行命令*/
 func exe(cm string, args ...string) {
+
 	//fd, _ := os.OpenFile("xiaoyi.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	cmd := exec.Command(cm, args...)
 	//创建获取命令输出管道
@@ -151,6 +151,17 @@ func checkErr(err error) {
 
 	if err != nil {
 		log.Printf("ERROR: #%v ", err)
+		logs(err.Error())
 	}
+
+}
+
+//打印日志
+func logs(s string) {
+
+	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	fd, _ := os.OpenFile(filepath.Join(dir, "logs.log"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	fd.WriteString(time.Now().Format("2006-01-02 15:04:05") + ":" + s + "\n")
+	defer fd.Close()
 
 }
