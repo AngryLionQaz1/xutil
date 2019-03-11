@@ -16,11 +16,11 @@ var staticHandler http.Handler
 
 // 初始化参数
 func init() {
-	dir = path.Dir("C:\\Users\\win\\Desktop\\thunder")
+	dir = path.Dir(`F:\tools\工具\Linux系统`)
 	flag.IntVar(&port, "port", 8086, "服务器端口")
 	flag.Parse()
-	fmt.Println("dir:", http.Dir(dir))
-	staticHandler = http.FileServer(http.Dir(dir))
+	fmt.Println("dir:", http.Dir(`F:\tools\工具\Linux系统`))
+	staticHandler = http.FileServer(http.Dir(`F:\tools\工具\Linux系统`))
 }
 
 func main() {
