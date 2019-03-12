@@ -1,0 +1,6 @@
+name: GoFilerServer
+displayName: 文件服务
+description: Go 文件服务器
+path: F:\tools\工具\Linux系统
+port: 8086
+size: 5000
