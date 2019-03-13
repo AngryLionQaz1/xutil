@@ -88,7 +88,7 @@ func main() {
 
 	})
 
-	http.ListenAndServe(":8086", mux)
+	http.ListenAndServeTLS(":8086", `F:\project\go\xutil\asses\server.crt`, `F:\project\go\xutil\asses\server.key`, mux)
 
 }
 
