@@ -184,6 +184,7 @@ func git() {
 	if pthExists(p.Dir) {
 		exe("git", "pull")
 	} else {
+		os.Chdir(p.Dir)
 		exe("git", "clone", p.Git)
 	}
 }

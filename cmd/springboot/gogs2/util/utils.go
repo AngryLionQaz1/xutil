@@ -168,6 +168,7 @@ func (p *Project) git() {
 	if pthExists(filepath.Join(p.PPath, p.Dir)) {
 		p.exe("git", "pull")
 	} else {
+		os.Chdir(filepath.Join(p.PPath, p.Dir))
 		p.exe("git", "clone", p.Git)
 	}
 }
