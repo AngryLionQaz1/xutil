@@ -1,5 +1,8 @@
-name: GoTest
-displayName: goTest
-description: goserver
-arguments: gogs,web,&
-port: 3000
+#文件名称
+dir: file
+#Jar 包名
+jar: file-0.0.1-SNAPSHOT.jar
+#git 地址
+git: root@47.92.213.93:xiaoyiqaz1/file.git
+#jar运行参数
+arguments: -Xms256m,-Xmx512m
