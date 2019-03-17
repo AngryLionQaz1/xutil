@@ -166,9 +166,11 @@ func (p *Project) mv(s1, s2 string) {
 func (p *Project) git() {
 	//1，判断文件夹是否存在
 	if pthExists(filepath.Join(p.PPath, p.Dir)) {
+		os.Chdir(p.Dir)
+		ss, _ := os.Getwd()
+		fmt.Println(ss)
 		p.exe("git", "pull")
 	} else {
-		os.Chdir(filepath.Join(p.PPath, p.Dir))
 		p.exe("git", "clone", p.Git)
 	}
 }
