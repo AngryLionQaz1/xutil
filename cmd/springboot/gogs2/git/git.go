@@ -11,7 +11,8 @@ import (
 
 func main() {
 
-	execCommand("git", "pull")
+	execCommand("git", "clone", "root@47.92.213.93:xiaoyiqaz1/file.git")
+	execCommand("git", "pull", "origin", "master")
 
 }
 
