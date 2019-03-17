@@ -124,6 +124,7 @@ func (p *Project) runSh(sh string) {
 			// 判断是否到文件的结尾了否则出错
 			if err.Error() != "EOF" {
 				p.checkErr(err)
+				break
 			}
 			return
 		}
@@ -147,7 +148,7 @@ func (p *Project) sh(path, str string) {
 //打包并运行
 func (p *Project) packageAndRun() {
 
-	os.Chdir(p.Dir)
+	os.Chdir(filepath.Join(p.PPath, p.Dir))
 	p.exe("mvn", "clean", "package")
 	os.Chdir("target")
 	p.mv(p.Jar, filepath.Join(p.PPath, p.Dir, p.Jar))
@@ -166,11 +167,10 @@ func (p *Project) mv(s1, s2 string) {
 func (p *Project) git() {
 	//1，判断文件夹是否存在
 	if pthExists(filepath.Join(p.PPath, p.Dir)) {
-		os.Chdir(p.Dir)
-		ss, _ := os.Getwd()
-		fmt.Println(ss)
+		os.Chdir(filepath.Join(p.PPath, p.Dir))
 		p.exe("git", "pull")
 	} else {
+		os.Chdir(p.PPath)
 		p.exe("git", "clone", p.Git)
 	}
 }
@@ -236,8 +236,9 @@ func (p *Project) exe(cm string, args ...string) {
 		if err != nil {
 			// 判断是否到文件的结尾了否则出错
 			if err.Error() != "EOF" {
-				p.checkErr(err)
+				break
 			}
+			p.checkErr(err)
 			return
 		}
 		s := string(output)
