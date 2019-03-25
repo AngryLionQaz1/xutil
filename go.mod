@@ -28,7 +28,6 @@ require (
 	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/otiai10/mint v1.2.1 // indirect
-	github.com/rakyll/statik v0.1.5 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.2.0
