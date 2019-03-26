@@ -5,6 +5,7 @@ import (
 	"github.com/urfave/cli"
 	"log"
 	"os"
+	"xutil/cmd/boot/util"
 )
 
 func main() {
@@ -16,7 +17,7 @@ func main() {
 	//程序的用途描述
 	app.Usage = "脚手架"
 	//程序的版本号
-	app.Version = "1.0.0"
+	app.Version = "2.0.0"
 
 	//预置变量
 
@@ -50,9 +51,7 @@ func main() {
 			Aliases: []string{"i"},
 			Usage:   "项目初始化",
 			Action: func(c *cli.Context) error {
-				//path := getDir(packageName)
-				//dirInit(projectName, path)
-				//initFIle(projectName, path, packageName, springBootVersion)
+				util.Run(packageName, projectName)
 				fmt.Println("项目初始化成功")
 				return nil
 			},
