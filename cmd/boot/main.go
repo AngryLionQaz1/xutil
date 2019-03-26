@@ -40,7 +40,7 @@ func main() {
 		},
 		cli.StringFlag{
 			Name:        "springboot, s",
-			Value:       "2.1.0.RELEASE",
+			Value:       "2.1.3.RELEASE",
 			Usage:       "springboot 版本号",
 			Destination: &springBootVersion,
 		},
