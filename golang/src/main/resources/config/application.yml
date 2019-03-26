@@ -1,0 +1,8 @@
+##主配置信息
+spring:
+  profiles:
+    active: dev,mysql,swagger,redis,actuator
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error

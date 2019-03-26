@@ -1,0 +1,13 @@
+##swagger 配置
+swagger:
+  enabled: true
+  title: TEST Api
+  authorization:
+    key-name: authorization
+  docket:
+    test:
+      base-package: com.snow.golang.module.test
+    user:
+      base-package: com.snow.golang.module.user
+    login:
+      base-package: com.snow.golang.module.login

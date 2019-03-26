@@ -1,0 +1,39 @@
+###上线环境
+spring:
+  servlet:
+    multipart:
+      #最大文件大小。值可以使用后缀“MB”或“KB”。指示兆字节或千字节大小。
+      max-file-size: 100MB
+      # 最大请求大小可以是mb也可以是kb
+      max-request-size: 100MB
+  banner:
+    charset: UTF-8
+    location: classpath:static/banner.txt
+    resources:
+      add-mappings: false
+
+server:
+  port: 8086
+  #  ssl:
+  #    key-store: classpath:keystore.jks
+  #    key-store-password: 123456
+  #    key-password: 123456
+  #    protocol: TLSv1.2
+  http2:
+    enabled: true
+  use-forward-headers: true
+
+config:
+  file-host: localhost
+  file-port: 8086
+  file-path: img
+  file-url: upload
+  file-type: java,php,py,go
+  authority-init: false
+
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+

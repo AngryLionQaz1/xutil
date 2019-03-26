@@ -1,0 +1,60 @@
+###mysql配置
+mysqlPort: 3306
+mysqlHost: 47.92.213.93
+mysqlUserName: root
+mysqlPassword: liaolin2018
+mysqlDriver: com.mysql.cj.jdbc.Driver
+mysqlDateBase: xy
+mysqlUrl: jdbc:mysql://${mysqlHost}:${mysqlPort}/${mysqlDateBase}?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+
+
+####druid 链接池
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+        hbm2ddl:
+          auto: update
+    show-sql: true
+    #packages: com.ly.spider.common.pojo
+  datasource:
+    druid:
+      url: ${mysqlUrl}
+      username: ${mysqlUserName}
+      password: ${mysqlPassword}
+      driver-class-name: ${mysqlDriver}
+      # 初始化大小，最小，最大
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 10000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，
+      #如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      testWhileIdle: true
+      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filter:
+        # 配置StatFilter
+        stat:
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
+        # 配置WallFilter
+        wall:
+          enabled: true
+          db-type: mysql
+          config:
+            delete-allow: true
+            drop-table-allow: false
