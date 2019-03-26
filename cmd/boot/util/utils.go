@@ -14,6 +14,7 @@ import (
 )
 
 const PACKAGE = "com.snow.golang"
+const Name = "golang"
 
 func Run(target, name string) {
 
@@ -22,7 +23,7 @@ func Run(target, name string) {
 		if file == "/" {
 			continue
 		}
-		output, needHandle, err := ReadFile(file, target)
+		output, needHandle, err := ReadFile(file, target, name)
 		CheckError(err)
 		if needHandle {
 			err = WriteToFile(filepath.Join(name, file), output)
@@ -35,6 +36,7 @@ func Run(target, name string) {
 func WriteToFile(filePath string, outPut []byte) error {
 	dir := filepath.Dir(filePath)
 	CreateDir(dir)
+	fmt.Println(filePath)
 	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0600)
 	defer f.Close()
 	if err != nil {
@@ -49,7 +51,7 @@ func WriteToFile(filePath string, outPut []byte) error {
 	return nil
 }
 
-func ReadFile(filePath, target string) ([]byte, bool, error) {
+func ReadFile(filePath, target, name string) ([]byte, bool, error) {
 	//f, err := os.OpenFile(filePath, os.O_RDONLY, 0644)
 	sss, err := fs.New()
 	CheckError(err)
@@ -77,6 +79,14 @@ func ReadFile(filePath, target string) ([]byte, bool, error) {
 			if !needHandle {
 				needHandle = true
 			}
+		} else if ok, _ := regexp.Match(Name, line); ok {
+			reg := regexp.MustCompile(Name)
+			newByte := reg.ReplaceAll(line, []byte(name))
+			output = append(output, newByte...)
+			output = append(output, []byte("\n")...)
+			if !needHandle {
+				needHandle = true
+			}
 		} else {
 			output = append(output, line...)
 			output = append(output, []byte("\n")...)
@@ -97,9 +107,6 @@ func GetFiles() []string {
 	})
 	CheckError(err)
 	sort.Strings(files)
-	for _, v := range files {
-		fmt.Println(v)
-	}
 	return files
 }
 
