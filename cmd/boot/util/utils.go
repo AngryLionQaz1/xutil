@@ -19,7 +19,6 @@ const PACKAGE = "com.snow.golang"
 const Name = "golang"
 
 func Run(target, name string) {
-
 	files := GetFiles()
 	for _, file := range files {
 		output, needHandle, err := ReadFile(file, target, name)
@@ -29,7 +28,6 @@ func Run(target, name string) {
 			CheckError(err)
 		}
 	}
-
 }
 
 func WriteToFile(target, filePath string, outPut []byte) error {
