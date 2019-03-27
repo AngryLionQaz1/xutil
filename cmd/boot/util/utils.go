@@ -2,6 +2,7 @@ package util
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"github.com/rakyll/statik/fs"
 	"io"
@@ -10,6 +11,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"sort"
+	"strings"
 	_ "xutil/cmd/boot/resources"
 )
 
@@ -20,24 +22,22 @@ func Run(target, name string) {
 
 	files := GetFiles()
 	for _, file := range files {
-		if file == "/" {
-			continue
-		}
 		output, needHandle, err := ReadFile(file, target, name)
 		CheckError(err)
 		if needHandle {
-			err = WriteToFile(filepath.Join(name, file), output)
+			err = WriteToFile(target, filepath.Join(name, file), output)
 			CheckError(err)
 		}
 	}
 
 }
 
-func WriteToFile(filePath string, outPut []byte) error {
-	dir := filepath.Dir(filePath)
+func WriteToFile(target, filePath string, outPut []byte) error {
+	ps := PS(target, filePath)
+	dir := filepath.Dir(ps)
 	CreateDir(dir)
-	fmt.Println(filePath)
-	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0600)
+	fmt.Println(ps)
+	f, err := os.OpenFile(ps, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0600)
 	defer f.Close()
 	if err != nil {
 		return err
@@ -90,9 +90,28 @@ func ReadFile(filePath, target, name string) ([]byte, bool, error) {
 		} else {
 			output = append(output, line...)
 			output = append(output, []byte("\n")...)
+			if !needHandle {
+				needHandle = true
+			}
 		}
 	}
 	return output, needHandle, nil
+}
+
+func PS(packages, filePath string) string {
+	split := strings.Split(PACKAGE, ".")
+	split2 := strings.Split(packages, ".")
+	var old bytes.Buffer
+	var naw bytes.Buffer
+	for _, v := range split {
+		old.WriteString(v)
+		old.WriteString("\\")
+	}
+	for _, v := range split2 {
+		naw.WriteString(v)
+		naw.WriteString("\\")
+	}
+	return strings.Replace(filePath, old.String(), naw.String(), -1)
 }
 
 //获取文件

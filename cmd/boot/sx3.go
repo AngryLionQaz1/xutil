@@ -2,11 +2,18 @@ package main
 
 import (
 	"fmt"
-	"xutil/cmd/boot/util"
+	"github.com/rakyll/statik/fs"
+	"log"
+	_ "xutil/cmd/boot/resources"
 )
 
 func main() {
 
-	err := util.WriteToFile("boot/pom.xml", []byte("ssssss"))
-	fmt.Println(err)
+	statikFS, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
+	f, _ := statikFS.Open("/src/main/resources/config/application-actuator.yml")
+	fmt.Println(f.Stat())
+
 }
