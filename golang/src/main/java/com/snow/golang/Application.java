@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableSwagger2Doc
-public class GolangApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(GolangApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
