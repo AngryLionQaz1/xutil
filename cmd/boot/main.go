@@ -20,7 +20,6 @@ func main() {
 	app.Version = "2.0.0"
 
 	//预置变量
-
 	var projectName string
 	var packageName string
 	var springBootVersion string

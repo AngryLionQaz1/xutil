@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 配置全局属性 -->
+    <settings>
+        <!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 -->
+        <setting name="useGeneratedKeys" value="true"/>
+
+        <!-- 使用列标签（数据库列名）替换列别名（查询语句中给查询的字段自定义的名称） 默认：true -->
+        <setting name="useColumnLabel" value="true"/>
+
+        <!-- 开启驼峰命名转换：Table(creatr_time) -> Entity(creatTime) -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!-- 设置别名 -->
+    <typeAliases>
+        <!-- 2. 指定扫描包，会把包内所有的类都设置别名，别名的名称就是类名，大小写不敏感 -->
+        <package name="" />
+    </typeAliases>
+
+</configuration>
