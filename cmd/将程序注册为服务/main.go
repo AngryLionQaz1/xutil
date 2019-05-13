@@ -61,6 +61,21 @@ func main() {
 		}
 		fmt.Println("卸载成功")
 	}
+	if cmd == "start" {
+		err = s.Run()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println("start")
+	}
+	if cmd == "stop" {
+		err = s.Stop()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println("stop")
+	}
+
 }
 func (p *Program) run() {
 	path := filepath.Join(p.Path, p.Program)
