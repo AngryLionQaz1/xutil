@@ -77,7 +77,7 @@ func Logs(s string) {
 
 //Linux kill
 func LinuxKill(name, pid string) {
-	Exe("kill", pid)
+	Exe("kill", "-9", pid)
 	println(name + " stop")
 
 }
