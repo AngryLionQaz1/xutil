@@ -1,0 +1,6 @@
+name: Frp
+displayName: frp server
+description: frp 代理工具
+path: D:\tools\frp\frp_0.27.0_windows_amd64
+program: frpc.exe
+args: -c,D:\tools\frp\frp_0.27.0_windows_amd64\frpc.ini
