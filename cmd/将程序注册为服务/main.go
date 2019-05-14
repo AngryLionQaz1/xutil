@@ -79,7 +79,7 @@ func main() {
 func (p *Program) run() {
 	path := filepath.Join(p.Path, p.Program)
 	// 此处编写具体的服务代码
-	until.Start(p.Name, path, p.Args)
+	until.Start(p.Name, p.Path, path, p.Args)
 }
 
 func (p *Program) Start(s service.Service) error {
@@ -92,7 +92,7 @@ func (p *Program) Start(s service.Service) error {
 func (p *Program) Stop(s service.Service) error {
 	log.Println("停止服务")
 	until.Logs("停止服务")
-	until.Stop(p.Name)
+	until.Stop(p.Name, p.Path)
 	return nil
 }
 

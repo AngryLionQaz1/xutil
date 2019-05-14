@@ -9,22 +9,27 @@ import (
 	"path/filepath"
 	"runtime"
 	"strconv"
+	"strings"
 	"time"
 )
 
 //运行程序
-func Start(name, cmd string, args ...string) {
-	command := exec.Command(cmd, args...)
+func Start(name, path, cmd, args string) {
+	strs := []string{}
+	for _, v := range strings.Split(args, ",") {
+		strs = append(strs, v)
+	}
+	command := exec.Command(cmd, strs...)
 	command.Start()
 	fmt.Printf(name+" start, [PID] %d running...\n", command.Process.Pid)
 	Logs(name + "start [PID]=" + strconv.Itoa(command.Process.Pid))
-	ioutil.WriteFile(name+".lock", []byte(fmt.Sprintf("%d", command.Process.Pid)), 0666)
+	ioutil.WriteFile(filepath.Join(path, name+".lock"), []byte(fmt.Sprintf("%d", command.Process.Pid)), 0666)
 
 }
 
 //停止程序
-func Stop(name string) {
-	pid, err := ioutil.ReadFile(name + ".lock")
+func Stop(name, path string) {
+	pid, err := ioutil.ReadFile(filepath.Join(path, name+".lock"))
 	CheckErr(err)
 	switch getOs() {
 	case 1:
