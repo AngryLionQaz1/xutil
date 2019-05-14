@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"time"
 )
 
@@ -16,9 +17,9 @@ func Start(name, cmd string, args ...string) {
 	command := exec.Command(cmd, args...)
 	command.Start()
 	fmt.Printf(name+" start, [PID] %d running...\n", command.Process.Pid)
-	Logs(name + "start [PID]=" + string(command.Process.Pid))
+	Logs(name + "start [PID]=" + strconv.Itoa(command.Process.Pid))
 	ioutil.WriteFile(name+".lock", []byte(fmt.Sprintf("%d", command.Process.Pid)), 0666)
-	os.Exit(0)
+
 }
 
 //停止程序
@@ -71,16 +72,13 @@ func Logs(s string) {
 
 //Linux kill
 func LinuxKill(name, pid string) {
-	command := exec.Command("kill", pid)
-	command.Start()
+	Exe("kill", pid)
 	println(name + " stop")
-	Logs(name + "stop")
+
 }
 
 //win task kill
 func WinTaskKill(name, pid string) {
-	command := exec.Command("taskkill", "/pid", pid, "-t", "-f")
-	command.Start()
+	Exec("TASKKILL", "/PID", pid, "/T", "/F")
 	println(name + " stop")
-	Logs(name + "stop")
 }

@@ -62,18 +62,17 @@ func main() {
 		fmt.Println("卸载成功")
 	}
 	if cmd == "start" {
-		err = s.Run()
+		err = s.Start()
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("start")
 	}
 	if cmd == "stop" {
-		err = s.Stop()
+		err = program.Stop(s)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("stop")
+
 	}
 
 }

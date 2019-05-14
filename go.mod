@@ -36,6 +36,7 @@ require (
 	github.com/urfave/cli v1.20.0
 	golang.org/x/net v0.0.0-20181220203305-927f97764cc3 // indirect
 	golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4 // indirect
+	golang.org/x/text v0.3.0
 	google.golang.org/appengine v1.4.0 // indirect
 	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.27
