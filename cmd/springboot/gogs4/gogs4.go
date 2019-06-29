@@ -22,6 +22,6 @@ func main() {
 
 	r.Mount("/java", jar.JarResource{}.Routes())
 
-	http.ListenAndServe(":3001", r)
+	http.ListenAndServe(":1000", r)
 
 }
