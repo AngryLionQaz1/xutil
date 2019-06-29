@@ -21,11 +21,11 @@ func Mv(path, s1, s2 string) {
 func Git(path, name, git string) {
 	//1，判断文件夹是否存在
 	if PathExists(filepath.Join(path, name)) {
-		os.Chdir(path)
-		exe(path, "git", "pull")
+		os.Chdir(filepath.Join(path, name))
+		Exe(filepath.Join(path, name), "git", "pull")
 	} else {
 		os.Chdir(path)
-		exe(path, "git", "clone", git)
+		Exe(path, "git", "clone", git)
 	}
 }
 
