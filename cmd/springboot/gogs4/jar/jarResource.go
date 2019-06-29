@@ -32,10 +32,8 @@ func (jr JarResource) Routes() chi.Router {
 }
 
 func (jr JarResource) Update(w http.ResponseWriter, r *http.Request) {
-	go func() {
-		project := parameters(r)
-		project.Update()
-	}()
+	project := parameters(r)
+	project.Update()
 	w.Write([]byte("success"))
 }
 

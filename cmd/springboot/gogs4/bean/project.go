@@ -40,10 +40,12 @@ func (p *Project) Delete() {
 
 //更新程序
 func (p *Project) Update() {
-	p.Stop()
-	p.InitProject()
-	p.Start()
-	util.Logs(filepath.Join(p.PPath, p.Dir), "update")
+	go func(p Project) {
+		p.Stop()
+		p.InitProject()
+		p.Start()
+		util.Logs(filepath.Join(p.PPath, p.Dir), "update")
+	}(*p)
 }
 
 //停止程序
