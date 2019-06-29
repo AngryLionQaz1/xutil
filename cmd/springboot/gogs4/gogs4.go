@@ -4,6 +4,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"net/http"
+	"xutil/cmd/springboot/gogs4/jar"
 )
 
 func main() {
@@ -19,7 +20,7 @@ func main() {
 		w.Write([]byte("."))
 	})
 
-	r.Mount("/java", javaResource{}.Routes())
+	r.Mount("/java", jar.JarResource{}.Routes())
 
 	http.ListenAndServe(":3001", r)
 
